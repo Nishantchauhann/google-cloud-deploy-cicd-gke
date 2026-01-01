@@ -49,22 +49,23 @@ TEST GKE  →  STAGING GKE  →  PROD GKE (Manual Approval)
 skaffold build \
   --default-repo=$REGION-docker.pkg.dev/$PROJECT_ID/web-app \
   --file-output artifacts.json
-
+```
 ### 2. Create a Release
 ``` bash
 gcloud deploy releases create web-app-001 \
   --delivery-pipeline web-app \
   --build-artifacts web/artifacts.json \
   --source web/
-
+```
 ### 3. Promote to Staging
 ``` bash
 gcloud deploy releases promote \
   --delivery-pipeline web-app \
   --release web-app-001
-
+```
 ### 4. Approve & Deploy to Production
 ``` bash
 gcloud deploy rollouts approve web-app-001-to-prod-0001 \
   --delivery-pipeline web-app \
   --release web-app-001
+```
